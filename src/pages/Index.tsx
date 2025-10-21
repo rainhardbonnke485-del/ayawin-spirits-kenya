@@ -119,16 +119,28 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {["Whisky", "Gin", "Vodka", "Wine", "Beer"].map(category => (
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {[
+              { name: "Whisky", category: "whisky" },
+              { name: "Gin", category: "gin" },
+              { name: "Vodka", category: "vodka" },
+              { name: "Wine", category: "wine" },
+              { name: "Beer", category: "beer" },
+              { name: "Rum", category: "rum" },
+              { name: "Tequila", category: "tequila" },
+              { name: "Cognac", category: "cognac" },
+              { name: "Energy Drinks", category: "energy-drink" },
+              { name: "Water", category: "water" },
+              { name: "Juices", category: "juice" },
+            ].map(({ name, category }) => (
               <Link 
                 key={category}
-                to={`/products?category=${category.toLowerCase()}`}
+                to={`/products?category=${category}`}
                 className="group"
               >
-                <div className="gradient-card rounded-lg p-8 text-center transition-smooth hover:shadow-elegant hover:scale-105">
-                  <Wine className="h-12 w-12 mx-auto mb-4 text-accent transition-smooth group-hover:scale-110" />
-                  <h3 className="text-xl font-semibold">{category}</h3>
+                <div className="gradient-card rounded-lg p-6 text-center transition-smooth hover:shadow-elegant hover:scale-105">
+                  <Wine className="h-10 w-10 mx-auto mb-3 text-accent transition-smooth group-hover:scale-110" />
+                  <h3 className="text-lg font-semibold">{name}</h3>
                 </div>
               </Link>
             ))}

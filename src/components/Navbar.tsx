@@ -1,8 +1,9 @@
-import { ShoppingCart, Wine, Search } from "lucide-react";
+import { ShoppingCart, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
+import logo from "@/assets/ayawin-logo.jpeg";
 
 const Navbar = () => {
   const { items } = useCart();
@@ -13,8 +14,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-2 group">
-            <Wine className="h-8 w-8 text-accent transition-smooth group-hover:scale-110" />
-            <span className="text-2xl font-bold text-foreground">Ayawin</span>
+            <img src={logo} alt="Ayawin Logo" className="h-10 w-auto transition-smooth group-hover:scale-105" />
           </Link>
 
           <div className="hidden md:flex items-center gap-6">

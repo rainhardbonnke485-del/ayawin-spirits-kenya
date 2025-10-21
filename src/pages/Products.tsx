@@ -17,7 +17,7 @@ const Products = () => {
     setSelectedCategory(category);
   }, [searchParams]);
 
-  const categories = ["whisky", "gin", "vodka", "wine", "beer"];
+  const categories = ["whisky", "gin", "vodka", "wine", "beer", "rum", "tequila", "cognac", "champagne", "energy-drink", "water", "juice"];
 
   const filteredProducts = selectedCategory
     ? products.filter(p => p.category === selectedCategory)
