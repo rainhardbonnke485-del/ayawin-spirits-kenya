@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Trash2, Plus, Minus, ShoppingBag } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { items, removeItem, updateQuantity, total } = useCart();
 
   if (items.length === 0) {
@@ -120,7 +121,10 @@ const Cart = () => {
                 </div>
               </div>
 
-              <Button className="w-full gradient-primary text-lg py-6 shadow-glow mb-4">
+              <Button 
+                className="w-full gradient-primary text-lg py-6 shadow-glow mb-4"
+                onClick={() => navigate("/checkout")}
+              >
                 Proceed to Checkout
               </Button>
               

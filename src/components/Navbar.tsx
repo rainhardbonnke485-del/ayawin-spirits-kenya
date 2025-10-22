@@ -1,13 +1,38 @@
-import { ShoppingCart, Search } from "lucide-react";
+import { ShoppingCart, Search, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import logo from "@/assets/ayawin-logo.jpeg";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { items } = useCart();
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    toast.success("Signed out successfully");
+    navigate("/");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -57,6 +82,16 @@ const Navbar = () => {
                 )}
               </Button>
             </Link>
+
+            {user ? (
+              <Button variant="outline" size="icon" onClick={handleSignOut}>
+                <LogOut className="h-5 w-5" />
+              </Button>
+            ) : (
+              <Button variant="outline" size="icon" onClick={() => navigate("/auth")}>
+                <User className="h-5 w-5" />
+              </Button>
+            )}
           </div>
         </div>
       </div>
